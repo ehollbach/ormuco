@@ -15,8 +15,8 @@ def compare_versions( version1, version2 ):
 	"""
 	Compares the two version strings passed as input
 	"""
-	version1 = version1.rstrip(".")
-	version2 = version2.rstrip(".")
+	version1 = version1.rstrip(".").split(".")
+	version2 = version2.rstrip(".").split(".")
 
 	if version1 == version2:
 		return 0
@@ -48,11 +48,11 @@ def main():
 	assert compare_versions("1.2.1", "1.2.1") == 0
 	assert compare_versions("1.", "1") == 0
 	assert compare_versions("a1", "1a") == 1
+	assert compare_versions("1.2.1", "1.19.0") == -1
 	
 	client = Client('127.0.0.1', 11211)
 	client.set('some_key', 'some_value', expire = 30)
 	assert client.get('some_key') == 'some_value'
-	
 	print("OK")
 	
 if __name__ == "__main__":
